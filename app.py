@@ -76,8 +76,11 @@ def run(query):
     provider = hotel_dict['booking_provider'].values[0]
     deals = hotel_dict['no_of_deals'].values[0]
 
-    print(hotel_name)
-    print(score)
+    #print(hotel_name)
+    #print(score)
+
+    st.text(hotel_name)
+    st.text(score)
 
     wordcloud = WordCloud(width = 800, height = 800,
         background_color ='white',
