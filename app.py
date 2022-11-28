@@ -88,12 +88,14 @@ def run(query):
         min_font_size = 10).generate(corpus[idx])
  
     # plot the WordCloud image                      
-    plt.figure(figsize = (8, 8), facecolor = None)
+    fig = plt.figure(figsize = (8, 8), facecolor = None)
     plt.imshow(wordcloud)
     plt.axis("off")
     plt.tight_layout(pad = 0)
     
-    plt.show()
+    #plt.show()
+
+    st.pyplot(fig)
 
 
 if st.button('Start search'):
