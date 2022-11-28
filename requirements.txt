@@ -1,0 +1,7 @@
+pandas
+matplotlib
+pickle
+sentence_transformers
+torch
+wordcloud
+streamlit
