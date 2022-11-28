@@ -45,17 +45,15 @@ def run():
 
     hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
 
-
-
     #with open('https://github.com/dkloepper/MABA6490-Assignment2/blob/2dc97d3b70176d85894a6bf52b80cae4a9ff3233/athens-embeddings.pkl', 'rb') as fIn:
-    with open('https://github.com/dkloepper/MABA6490-Assignment2/blob/main/athens-embeddings.pkl?raw=true', 'rb') as fIn:
+    with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
 
     embeddings = corpus_embedding['embeddings']
     corpus = corpus_embedding['sentences']
     reviews_df = corpus_embedding['reviews']
 
-    query = st.text_input("label goes here", default_value_goes_here)
+    query = st.text_input("label goes here", "near akropolis")
 
     search_result = run_search(query, embeddings)
 
