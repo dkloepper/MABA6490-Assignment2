@@ -19,10 +19,12 @@ stopwords = set(STOPWORDS)
 
 import streamlit as st
 
-st.title("Welcome to MABA Class, David Kloepper")
+st.title("Athens Hotel Search")
 st.markdown("This is a demo Streamlit app on the web.")
 st.markdown("My name is David, hello world!..")
-st.markdown("This is v2.1")
+st.markdown("This is v0.1")
+
+query = st.text_input("label goes here", "near akropolis")
 
 @st.cache(persist=True)
 
@@ -41,7 +43,7 @@ def run_search(query, embeddings):
     return results
 
 
-def run():
+def run(query):
 
     hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
 
@@ -53,7 +55,7 @@ def run():
     corpus = corpus_embedding['sentences']
     reviews_df = corpus_embedding['reviews']
 
-    query = st.text_input("label goes here", "near akropolis")
+    #query = "near akropolis"
 
     search_result = run_search(query, embeddings)
 
@@ -88,5 +90,8 @@ def run():
     
     plt.show()
 
-if __name__ == '__main__':
-    run()
+
+if st.button('Start search'):
+    run(query)
+#if __name__ == '__main__':
+#    run()
