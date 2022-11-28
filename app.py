@@ -38,7 +38,7 @@ def run_search(query, embeddings):
     cos_scores = util.pytorch_cos_sim(query_embedding, embeddings)[0]
     top_results = torch.topk(cos_scores, k=1)
 
-    results = zip(top_results[0], top_results[1])
+    results = list(zip(top_results[0], top_results[1]))
 
     return results
 
@@ -93,5 +93,3 @@ def run(query):
 
 if st.button('Start search'):
     run(query)
-#if __name__ == '__main__':
-#    run()
