@@ -79,17 +79,18 @@ def run(query):
     
         st.header('Best hotel match:')
 
-        st.text(hotel_name)
-        st.text(hotel_url)
-        st.text("Number of Reviews: " + str(reviews))
+        st.markdown(**hotel_name**)
+        st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>')
+
+        #st.text(hotel_url)
+        #st.text("Number of Reviews: " + str(reviews))
         st.text("Current Price: " + price)
         st.text("Booking provider: " + provider)
         st.text("Deals Available: " + str(deals))
 
-        st.subheader("Review Word Cloud")
         st.text("What other guests are saying about this hotel")
 
-        wordcloud = WordCloud(width = 800, height = 800,
+        wordcloud = WordCloud(width = 600, height = 600,
             background_color ='white',
             stopwords = stopwords,
             min_font_size = 10).generate(corpus[idx])
