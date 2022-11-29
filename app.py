@@ -69,10 +69,10 @@ def run(query):
     provider = hotel_dict['booking_provider'].values[0]
     if str(hotel_dict['price_per_night'].values[0]) == "nan":
         #price = "Visit provider for current rate."
-        price = 'Visit <a href="' + provider + '">' + provider + '</a> for current rate.'
+        price = 'Visit <a href="' + provider + '.com">' + provider + '</a> for current rate.'
     else:
         #price = str(hotel_dict['price_per_night'].values[0])
-        price = str(hotel_dict['price_per_night'].values[0]) + 'from <a href="' + provider + '">' + provider + '</a>.'
+        price = str(hotel_dict['price_per_night'].values[0]) + 'from <a href="' + provider + '.com">' + provider + '</a>.'
     
     deals = hotel_dict['no_of_deals'].values[0]
 
@@ -82,7 +82,7 @@ def run(query):
 
         st.subheader(hotel_name)
         st.markdown("Best available price: " + price, unsafe_allow_html=True)
-        st.markdown('See ' + str(deals) + ' additional deals from <a href="' + provider + '">' + provider + '</a>.',unsafe_allow_html=True)
+        st.markdown('See ' + str(deals) + ' additional deals from <a href="' + provider + '.com">' + provider + '</a>.',unsafe_allow_html=True)
         st.text("")
         st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>', unsafe_allow_html=True)
 
@@ -92,7 +92,7 @@ def run(query):
 
         st.markdown("What other guests are saying about this hotel:")
 
-        wordcloud = WordCloud(width = 300, height = 300,
+        wordcloud = WordCloud(width = 800, height = 800
             background_color ='white',
             stopwords = stopwords,
             min_font_size = 10).generate(corpus[idx])
