@@ -22,18 +22,13 @@ st.title("Athens Hotel Search")
 st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg")
 st.markdown('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
 
-#st.markdown("This is a demo Streamlit app on the web.")
-#st.markdown("My name is David, hello world!..")
-#st.markdown("This is v0.1")
-
-query = st.text_input("Describe your perfect hotel in Athens:", "near akropolis")
+query = st.text_input("Describe your perfect hotel in Athens:", "walking distance to acropolis, clean rooms, pool")
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 @st.cache(persist=True)
 
 def run_search(query, embeddings):
 
-    #model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
     #model = SentenceTransformer('all-MiniLM-L6-v2')
     
     query_embedding = model.encode(query, convert_to_tensor=True)
@@ -42,18 +37,13 @@ def run_search(query, embeddings):
     cos_scores = util.pytorch_cos_sim(query_embedding, embeddings)[0]
     top_result = torch.topk(cos_scores, k=1)
 
-    #results = list(zip(top_results[0], top_results[1]))
-
-    #return results
-
     return top_result
 
 
 def run(query):
 
-    #hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
     hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
-    hotel_df.fillna(0)
+    #hotel_df.fillna(0)
 
     with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
@@ -76,10 +66,10 @@ def run(query):
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
     #price = hotel_dict['price_per_night'].values[0]
-    if hotel_dict['price_per_night'].values[0] == 0:
+    if hotel_dict['price_per_night'].values[0] == "nan":
         price = "Visit provider for current rate."
     else:
-        price = str(hotel_dict['price_per_night'].values[0])
+        price = hotel_dict['price_per_night'].values[0]
     provider = hotel_dict['booking_provider'].values[0]
     deals = hotel_dict['no_of_deals'].values[0]
 
