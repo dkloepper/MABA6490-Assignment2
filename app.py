@@ -20,7 +20,9 @@ import streamlit as st
 st.title("Athens Hotel Search")
 
 st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg")
-st.markdown('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
+st.caption('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
+st.markdown("""---""")
+result_container = st.container()
 
 query = st.text_input("Describe your perfect hotel in Athens:", "walking distance to acropolis, clean rooms, pool")
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -73,28 +75,35 @@ def run(query):
     provider = hotel_dict['booking_provider'].values[0]
     deals = hotel_dict['no_of_deals'].values[0]
 
-    st.text(hotel_name)
-    st.text(hotel_url)
-    st.text("Number of Reviews: " + str(reviews))
-    st.text("Current Price: " + price)
-    st.text("Booking provider: " + provider)
-    st.text("Deals Available: " + str(deals))
-
-    wordcloud = WordCloud(width = 800, height = 800,
-        background_color ='white',
-        stopwords = stopwords,
-        min_font_size = 10).generate(corpus[idx])
- 
-    # plot the WordCloud image                      
-    fig = plt.figure(figsize = (8, 8), facecolor = None)
-    plt.imshow(wordcloud)
-    plt.axis("off")
-    plt.tight_layout(pad = 0)
+    with result_container:
     
-    #plt.show()
+        st.header('Best hotel match:')
 
-    st.pyplot(fig)
+        st.text(hotel_name)
+        st.text(hotel_url)
+        st.text("Number of Reviews: " + str(reviews))
+        st.text("Current Price: " + price)
+        st.text("Booking provider: " + provider)
+        st.text("Deals Available: " + str(deals))
+
+        st.subheader("Review Word Cloud")
+        st.text("What other guests are saying about this hotel")
+
+        wordcloud = WordCloud(width = 800, height = 800,
+            background_color ='white',
+            stopwords = stopwords,
+            min_font_size = 10).generate(corpus[idx])
+    
+        # plot the WordCloud image                      
+        fig = plt.figure(figsize = (8, 8), facecolor = None)
+        plt.imshow(wordcloud)
+        plt.axis("off")
+        plt.tight_layout(pad = 0)
+        
+        #plt.show()
+
+        st.pyplot(fig)
 
 
-if st.button('Start search'):
+if st.button('Find a hotel'):
     run(query)
