@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 import pickle as pkl
 from sentence_transformers import SentenceTransformer, util
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 import torch
 
@@ -17,15 +18,16 @@ stopwords = set(STOPWORDS)
 
 import streamlit as st
 
-st.title("Athens Hotel Search")
-
-st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg")
-st.caption('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
-st.markdown("""---""")
+body_container = st.container()
 result_container = st.container()
 
-query = st.text_input("Describe your perfect hotel in Athens:", "walking distance to acropolis, clean rooms, pool")
-model = SentenceTransformer('all-MiniLM-L6-v2')
+with body_container:
+    st.title("Athens Hotel Search")
+    st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg")
+    st.caption('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
+    st.markdown("""---""")
+    query = st.text_input("Describe your perfect hotel in Athens:", "walking distance to acropolis, clean rooms, pool")
+
 
 @st.cache(persist=True)
 
@@ -79,8 +81,8 @@ def run(query):
     
         st.header('Best hotel match:')
 
-        st.markdown("**" + hotel_name + "**")
-        st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>')
+        st.subheader(hotel_name)
+        st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>', unsafe_allow_html=True)
 
         #st.text(hotel_url)
         #st.text("Number of Reviews: " + str(reviews))
