@@ -73,7 +73,11 @@ def run(query):
     hotel_name = hotel_dict['hotel_name'].values[0]
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
-    price = hotel_dict['price_per_night'].values[0]
+    #price = hotel_dict['price_per_night'].values[0]
+    if hotel_dict['price_per_night'].values[0] == "":
+        price = "Visit provider for current rate."
+    else:
+        price = str(hotel_dict['price_per_night'].values[0])
     provider = hotel_dict['booking_provider'].values[0]
     deals = hotel_dict['no_of_deals'].values[0]
 
