@@ -82,7 +82,7 @@ def run(query):
 
         st.subheader(hotel_name)
         st.markdown("Best available price: " + price, unsafe_allow_html=True)
-        st.markdown("See " + deals + ' additional deals from <a href="' + provider + '">' + provider + '</a>.',unsafe_allow_html=True)
+        st.markdown('See ' + deals + ' additional deals from <a href="' + provider + '">' + provider + '</a>.',unsafe_allow_html=True)
         st.text("")
         st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>', unsafe_allow_html=True)
 
