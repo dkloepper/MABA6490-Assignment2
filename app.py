@@ -92,7 +92,7 @@ def run(query):
 
         st.markdown("What other guests are saying about this hotel:")
 
-        wordcloud = WordCloud(width = 800, height = 800
+        wordcloud = WordCloud(width = 800, height = 800,
             background_color ='white',
             stopwords = stopwords,
             min_font_size = 10).generate(corpus[idx])
