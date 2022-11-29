@@ -51,7 +51,7 @@ def run_search(query, embeddings):
 def run(query):
 
     #hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
-    hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv", fill)
+    hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
     hotel_df.fillna(value=0)
 
     with open('athens-embeddings.pkl', 'rb') as fIn:
