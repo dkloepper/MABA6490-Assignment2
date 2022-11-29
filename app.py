@@ -19,7 +19,8 @@ import streamlit as st
 
 st.title("Athens Hotel Search")
 
-st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg", caption='Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>')
+st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg")
+st.markdown('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
 
 #st.markdown("This is a demo Streamlit app on the web.")
 #st.markdown("My name is David, hello world!..")
@@ -52,7 +53,7 @@ def run(query):
 
     #hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
     hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
-    hotel_df.fillna(value=0)
+    hotel_df.fillna(0)
 
     with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
