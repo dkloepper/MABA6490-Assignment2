@@ -26,14 +26,14 @@ st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg", caption='Photo by <a href="ht
 #st.markdown("This is v0.1")
 
 query = st.text_input("Describe your perfect hotel in Athens:", "near akropolis")
-#model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 @st.cache(persist=True)
 
 def run_search(query, embeddings):
 
     #model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    #model = SentenceTransformer('all-MiniLM-L6-v2')
     
     query_embedding = model.encode(query, convert_to_tensor=True)
 
