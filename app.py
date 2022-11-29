@@ -27,13 +27,11 @@ with body_container:
     st.caption('Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>', unsafe_allow_html=True)
     st.markdown("""---""")
     query = st.text_input("Describe your perfect hotel in Athens:", "walking distance to acropolis, clean rooms, pool")
-
+    search_button = st.button('Find a hotel')
 
 @st.cache(persist=True)
 
 def run_search(query, embeddings):
-
-    #model = SentenceTransformer('all-MiniLM-L6-v2')
     
     query_embedding = model.encode(query, convert_to_tensor=True)
 
@@ -47,7 +45,6 @@ def run_search(query, embeddings):
 def run(query):
 
     hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
-    #hotel_df.fillna(0)
 
     with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
@@ -69,12 +66,14 @@ def run(query):
     hotel_name = hotel_dict['hotel_name'].values[0]
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
-    #price = hotel_dict['price_per_night'].values[0]
-    if str(hotel_dict['price_per_night'].values[0]) == "nan":
-        price = "Visit provider for current rate."
-    else:
-        price = str(hotel_dict['price_per_night'].values[0])
     provider = hotel_dict['booking_provider'].values[0]
+    if str(hotel_dict['price_per_night'].values[0]) == "nan":
+        #price = "Visit provider for current rate."
+        price = 'Visit <a href="' + provider + '">' + provider + '</a> for current rate.'
+    else:
+        #price = str(hotel_dict['price_per_night'].values[0])
+        price = str(hotel_dict['price_per_night'].values[0]) + 'from <a href="' + provider + '">' + provider + '</a>.'
+    
     deals = hotel_dict['no_of_deals'].values[0]
 
     with result_container:
@@ -82,17 +81,18 @@ def run(query):
         st.header('Best hotel match:')
 
         st.subheader(hotel_name)
+        st.markdown("Best available price: " + price, unsafe_allow_html=True)
+        st.markdown("See " + deals + ' additional deals from <a href="' + provider + '">' + provider + '</a>.',unsafe_allow_html=True)
+        st.text("")
         st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>', unsafe_allow_html=True)
 
-        #st.text(hotel_url)
-        #st.text("Number of Reviews: " + str(reviews))
-        st.text("Current Price: " + price)
-        st.text("Booking provider: " + provider)
-        st.text("Deals Available: " + str(deals))
+        #st.markdown("Current Price: " + price)
+        #st.text("Booking provider: " + provider)
+        #st.text("Deals Available: " + str(deals))
 
-        st.text("What other guests are saying about this hotel")
+        st.markdown("What other guests are saying about this hotel:")
 
-        wordcloud = WordCloud(width = 600, height = 600,
+        wordcloud = WordCloud(width = 300, height = 300,
             background_color ='white',
             stopwords = stopwords,
             min_font_size = 10).generate(corpus[idx])
@@ -103,10 +103,8 @@ def run(query):
         plt.axis("off")
         plt.tight_layout(pad = 0)
         
-        #plt.show()
-
         st.pyplot(fig)
 
 
-if st.button('Find a hotel'):
+if search_button:
     run(query)
