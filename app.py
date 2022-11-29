@@ -6,7 +6,6 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import math
 
 import pickle as pkl
 from sentence_transformers import SentenceTransformer, util
@@ -52,7 +51,8 @@ def run_search(query, embeddings):
 def run(query):
 
     #hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
-    hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
+    hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv", fill)
+    hotel_df.fillna(value=0)
 
     with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
@@ -75,7 +75,7 @@ def run(query):
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
     #price = hotel_dict['price_per_night'].values[0]
-    if math.isnan(hotel_dict['price_per_night'].values[0]):
+    if hotel_dict['price_per_night'].values[0] == 0:
         price = "Visit provider for current rate."
     else:
         price = str(hotel_dict['price_per_night'].values[0])
