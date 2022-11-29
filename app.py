@@ -79,7 +79,7 @@ def run(query):
     
         st.header('Best hotel match:')
 
-        st.markdown(**hotel_name**)
+        st.markdown("**" + hotel_name + "**")
         st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>')
 
         #st.text(hotel_url)
