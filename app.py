@@ -72,7 +72,7 @@ def run(query):
         price = 'Visit <a href="http://www.' + provider.lower() + '.com">' + provider + '</a> for current rate.'
     else:
         #price = str(hotel_dict['price_per_night'].values[0])
-        price = str(hotel_dict['price_per_night'].values[0]) + 'from <a href="http://www.' + provider.lower() + '.com">' + provider + '</a>.'
+        price = str(hotel_dict['price_per_night'].values[0]) + ' from <a href="http://www.' + provider.lower() + '.com">' + provider + '</a>.'
     
     deals = hotel_dict['no_of_deals'].values[0]
 
@@ -84,11 +84,7 @@ def run(query):
         st.markdown("Best available price: " + price, unsafe_allow_html=True)
         st.markdown('See ' + str(deals) + ' additional deals from <a href="http://www.' + provider.lower() + '.com">' + provider + '</a>.',unsafe_allow_html=True)
         st.text("")
-        st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">Trip Advisor</a>', unsafe_allow_html=True)
-
-        #st.markdown("Current Price: " + price)
-        #st.text("Booking provider: " + provider)
-        #st.text("Deals Available: " + str(deals))
+        st.markdown('Read ' + str(reviews) + ' reviews and more information about this property on <a href="' + hotel_url + '">TripAdvisor</a>', unsafe_allow_html=True)
 
         st.markdown("What other guests are saying about this hotel:")
 
