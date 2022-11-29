@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-
-
 @author: David Kloepper (kloe0021@umn.edu)
 """
 
@@ -20,17 +18,21 @@ stopwords = set(STOPWORDS)
 import streamlit as st
 
 st.title("Athens Hotel Search")
+
+st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg", caption="Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>")
+
 st.markdown("This is a demo Streamlit app on the web.")
 st.markdown("My name is David, hello world!..")
 st.markdown("This is v0.1")
 
-query = st.text_input("label goes here", "near akropolis")
+query = st.text_input("Describe your perfect hotel in Athens:", "near akropolis")
+model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
 
 @st.cache(persist=True)
 
 def run_search(query, embeddings):
 
-    model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
+    #model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
     
     query_embedding = model.encode(query, convert_to_tensor=True)
 
@@ -47,17 +49,15 @@ def run_search(query, embeddings):
 
 def run(query):
 
-    hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
+    #hotel_df = pd.read_csv("https://raw.githubusercontent.com/dkloepper/MABA6490-Assignment2/3c4443422597a40d0b9cc7115ca8d5edc11d609f/HotelListInAthens__en2019100120191005.csv")
+    hotel_df = pd.read_csv("HotelListInAthens__en2019100120191005.csv")
 
-    #with open('https://github.com/dkloepper/MABA6490-Assignment2/blob/2dc97d3b70176d85894a6bf52b80cae4a9ff3233/athens-embeddings.pkl', 'rb') as fIn:
     with open('athens-embeddings.pkl', 'rb') as fIn:
         corpus_embedding = pkl.load(fIn)
 
     embeddings = corpus_embedding['embeddings']
     corpus = corpus_embedding['sentences']
     reviews_df = corpus_embedding['reviews']
-
-    #query = "near akropolis"
 
     search_result = run_search(query, embeddings)
 
@@ -76,11 +76,12 @@ def run(query):
     provider = hotel_dict['booking_provider'].values[0]
     deals = hotel_dict['no_of_deals'].values[0]
 
-    #print(hotel_name)
-    #print(score)
-
     st.text(hotel_name)
-    st.text(score)
+    st.text(hotel_url)
+    st.text("Number of Reviews: " + reviews)
+    st.text("Current Price: " + price)
+    st.text("Booking provider: " + provider)
+    st.text("Deals Available: " + deals)
 
     wordcloud = WordCloud(width = 800, height = 800,
         background_color ='white',
