@@ -21,9 +21,9 @@ st.title("Athens Hotel Search")
 
 st.image("spencer-davis-ilQmlVIMN4c-unsplash.jpg", caption='Photo by <a href="https://unsplash.com/@spencerdavis?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Spencer Davis</a> on <a href="https://unsplash.com/s/photos/athens?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>')
 
-st.markdown("This is a demo Streamlit app on the web.")
-st.markdown("My name is David, hello world!..")
-st.markdown("This is v0.1")
+#st.markdown("This is a demo Streamlit app on the web.")
+#st.markdown("My name is David, hello world!..")
+#st.markdown("This is v0.1")
 
 query = st.text_input("Describe your perfect hotel in Athens:", "near akropolis")
 #model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
@@ -78,10 +78,10 @@ def run(query):
 
     st.text(hotel_name)
     st.text(hotel_url)
-    st.text("Number of Reviews: " + reviews)
+    st.text("Number of Reviews: " + str(reviews))
     st.text("Current Price: " + price)
     st.text("Booking provider: " + provider)
-    st.text("Deals Available: " + deals)
+    st.text("Deals Available: " + str(deals))
 
     wordcloud = WordCloud(width = 800, height = 800,
         background_color ='white',
