@@ -26,25 +26,25 @@ st.markdown("My name is David, hello world!..")
 st.markdown("This is v0.1")
 
 query = st.text_input("Describe your perfect hotel in Athens:", "near akropolis")
-model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
+#model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
 
 @st.cache(persist=True)
 
 def run_search(query, embeddings):
 
-    #model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
+    model = SentenceTransformer('sentence-transformers/paraphrase-xlm-r-multilingual-v1')
     
     query_embedding = model.encode(query, convert_to_tensor=True)
 
     # We use cosine-similarity and torch.topk to find the top 1 score
     cos_scores = util.pytorch_cos_sim(query_embedding, embeddings)[0]
-    top_results = torch.topk(cos_scores, k=1)
+    top_result = torch.topk(cos_scores, k=1)
 
     #results = list(zip(top_results[0], top_results[1]))
 
     #return results
 
-    return top_results
+    return top_result
 
 
 def run(query):
