@@ -6,6 +6,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
 
 import pickle as pkl
 from sentence_transformers import SentenceTransformer, util
@@ -74,7 +75,7 @@ def run(query):
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
     #price = hotel_dict['price_per_night'].values[0]
-    if hotel_dict['price_per_night'].values[0] == "":
+    if math.isnan(hotel_dict['price_per_night'].values[0]):
         price = "Visit provider for current rate."
     else:
         price = str(hotel_dict['price_per_night'].values[0])
