@@ -67,7 +67,7 @@ def run(query):
     hotel_url = hotel_dict['url'].values[0]
     reviews = hotel_dict['reviews'].values[0]
     provider = hotel_dict['booking_provider'].values[0]
-    provider_url = "http://www." + provider.lower() if provider[-4:] == ".com" else 'http://www.' + provider.lower() + '.com">'
+    provider_url = "http://www." + provider.lower() if provider[-4:] == ".com" else 'http://www.' + provider.lower() + '.com'
     if str(hotel_dict['price_per_night'].values[0]) == "nan":
         #price = "Visit provider for current rate."
         price = 'Visit <a href="' + provider_url + '">' + provider + '</a> for current rate.'
